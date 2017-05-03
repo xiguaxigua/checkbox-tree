@@ -1,2 +1,7 @@
 node_modules
 .gitignore
+dist
+build
+example
+.gitignore
+yarn.lock

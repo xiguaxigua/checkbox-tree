@@ -1,10 +1,13 @@
 {
   "name": "checkbox-tree",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./build/webpack.dev.conf.js"
+    "dev": "webpack-dev-server --config ./build/webpack.dev.conf.js",
+    "build": "rm -f -r dist && webpack --config ./build/webpack.prod.conf.js --hide-modules",
+    "com": "rm -f -r lib && node build/rollup.config.js",
+    "prepublish": "npm run com"
   },
   "repository": {
     "type": "git",
@@ -17,7 +20,7 @@
     "url": "https://github.com/xiguaxigua/checkbox-tree/issues"
   },
   "homepage": "https://github.com/xiguaxigua/checkbox-tree#readme",
-   "devDependencies": {
+  "devDependencies": {
     "babel-core": "6.24.0",
     "babel-eslint": "7.1.1",
     "babel-loader": "6.4.1",
@@ -45,8 +48,10 @@
     "rollup-plugin-alias": "1.2.1",
     "rollup-plugin-babel": "2.7.1",
     "rollup-plugin-commonjs": "8.0.2",
+    "rollup-plugin-css-only": "^0.2.0",
     "rollup-plugin-eslint": "3.0.0",
     "rollup-plugin-node-resolve": "2.0.0",
+    "rollup-plugin-postcss": "^0.4.1",
     "style-loader": "0.14.1",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.2",

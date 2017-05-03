@@ -7,6 +7,10 @@
   <title>CheckBox-Tree</title>
 </head>
 <body>
-  
+  <input type="button" value="切换数据" class="toggle-data"><br><br>
+  <input type="button" value="查看选中元素：叶子节点" class="get-info" data-a="true" data-b="false" onclick="get(true)"><br /><br />
+  <input type="button" value="查看选中元素：所有节点+不可以半选" onclick="get(false, true)"><br /><br />
+  <input type="button" value="查看选中元素：所有节点+可以半选" onclick="get(false, false)"><br /><br />
+  <div id="tree"></div>
 </body>
 </html>
