@@ -1,0 +1,34 @@
+.checkbox-tree .tree-node-child {
+  margin-left: 15px;
+  display: none;
+}
+
+.checkbox-tree .tree-node-child.expened {
+  display: block;
+}
+
+.checkbox-tree .tree-icon {
+  display: inline-block;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+  margin-top: 5px;
+  margin-right: 3px;
+  border: 5px solid transparent;
+  border-right-width: 0;
+  border-left-color: #333;
+  border-left-width: 7px;
+}
+
+.checkbox-tree .tree-icon.expened {
+  border: 5px solid transparent;
+  border-bottom-width: 0;
+  border-top-color: #333;
+  border-top-width: 7px;
+  margin-top: 7px;
+  margin-right: 0;
+}
+
+.checkbox-tree .tree-icon.empty {
+  border-color: transparent;
+}

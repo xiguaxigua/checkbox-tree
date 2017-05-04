@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CheckBox-Tree</title>
+</head>
+<body>
+  <input type="button" value="切换数据" class="toggle-data">
+  <select name="checkType" id="check-type">
+    <option value="1,0">叶子节点</option>
+    <option value="0,1">所有节点+不可以半选</option>
+    <option value="0,0">所有节点+可以半选</option>
+  </select>
+  <input type="button" value="查看选中元素" id="get-info">
+  <div id="tree"></div>
+</body>
+</html>
