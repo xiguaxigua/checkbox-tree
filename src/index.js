@@ -6,7 +6,8 @@ const defaultLevel = {
   checkedProperty: 'flag',
   name: 'name',
   id: 'id',
-  parentId: 'parent_id'
+  parentId: 'parent_id',
+  expened: false
 }
 
 class checkboxTree {
@@ -21,6 +22,7 @@ class checkboxTree {
     this.nameSign = level.name
     this.idSign = level.id
     this.parentIdSign = level.parentId
+    this.expened = level.expened
     this.dataMap = {}
     this.selectedData = []
     this.init()
@@ -76,9 +78,10 @@ class checkboxTree {
 
   getTreeNodeContent ({ text, id, checked, fill, indeterminate }) {
     const emptySign = fill ? '' : 'empty'
+    const expened = this.expened ? 'expened' : ''
     const node = createElement('div', { className: 'tree-node-content' })
 
-    node.appendChild(createElement('span', { className: 'tree-icon ' + emptySign }))
+    node.appendChild(createElement('span', { className: `tree-icon ${emptySign} ${expened}` }))
     node.appendChild(createElement('input', { type: 'checkbox', name: id, checked, indeterminate }))
     node.appendChild(createElement('span', { className: 'tree-text', innerHTML: text }))
 
@@ -115,7 +118,8 @@ class checkboxTree {
   }
 
   getTreeNodeChild (content) {
-    const node = createElement('div', { className: 'tree-node-child' })
+    const expened = this.expened ? 'expened' : ''
+    const node = createElement('div', { className: `tree-node-child ${expened}` })
 
     node.appendChild(content)
 
@@ -127,11 +131,11 @@ class checkboxTree {
       const clickChildrenDom = target.parentNode.nextSibling
 
       if (!clickChildrenDom) return
-      if (clickChildrenDom.style.display === 'block') {
-        clickChildrenDom.style.display = 'none'
+      if (clickChildrenDom.classList.contains('expened')) {
+        clickChildrenDom.classList.remove('expened')
         target.classList.remove('expened')
       } else {
-        clickChildrenDom.style.display = 'block'
+        clickChildrenDom.classList.add('expened')
         target.classList.add('expened')
       }
     } else if (target.tagName.toLowerCase() === 'input') {
@@ -150,7 +154,7 @@ class checkboxTree {
         }
       } else {
         if (exceptIndeterminate) {
-          if (item.checked) {
+          if (item.checked && !item.indeterminate) {
             selectedData.push(this.dataMap[item.name])
           }
         } else {
@@ -247,13 +251,12 @@ class checkboxTree {
       })
       // 赋值状态
       parentInput.checked = indeterminate
-      this.dataMap[parentInput.name][this.checkedProperty] = true
-
       parentInput.indeterminate = childIndeterminate || indeterminate
-      this.dataMap[parentInput.name][this.checkedProperty] = false
+
+      this.dataMap[parentInput.name][this.checkedProperty] = indeterminate
     }
 
-    if (parentDom.parentNode.parentNode.className === 'tree-node-child') {
+    if (parentDom.parentNode.parentNode.classList.contains('tree-node-child')) {
       // 递归父节点
       this.parentChangeHandler(parentDom.parentNode.parentNode, checked, indeterminate)
     }

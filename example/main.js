@@ -7,7 +7,8 @@ const level = {
   checkedProperty: 'flag',
   name: 'name',
   id: 'id',
-  parentId: 'parent_id'
+  parentId: 'parent_id',
+  expened: false
 }
 let sign = true
 /* eslint-disable no-new */
