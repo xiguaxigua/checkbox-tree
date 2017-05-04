@@ -11,19 +11,22 @@ const level = {
 }
 let sign = true
 /* eslint-disable no-new */
-new Tree(document.getElementById('tree'), {
+const tree = new Tree(document.getElementById('tree'), {
   data: data['children'],
   level: level
 })
-const getBtn = document.querySelector('.get-info')
-getBtn.addEventListener('click', ({ target }) => {
-  const { a, b } = target.dataset
-  console.log(Tree.getSelectedNodes(a, b))
+const getBtn = document.querySelector('#get-info')
+const checkType = document.querySelector('#check-type')
+
+getBtn.addEventListener('click', () => {
+  const [leafNodeOnly, exceptIndeterminate] = checkType.value.split(',')
+
+  console.log(tree.getSelectedNodes(!!+leafNodeOnly, !!+exceptIndeterminate))
 })
+
 const toggleBtn = document.querySelector('.toggle-data')
 toggleBtn.addEventListener('click', () => {
   sign = !sign
   const dataNow = sign ? data['children'] : data1['children']
-  console.log(dataNow)
-  Tree.changeData(dataNow)
+  tree.changeData(dataNow)
 })

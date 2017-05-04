@@ -21,7 +21,6 @@ class checkboxTree {
     this.nameSign = level.name
     this.idSign = level.id
     this.parentIdSign = level.parentId
-    this.checkAndInterminate = [false, false]
     this.dataMap = {}
     this.selectedData = []
     this.init()
@@ -144,19 +143,19 @@ class checkboxTree {
     const input = this.node.querySelectorAll('input')
     const selectedData = []
 
-    input.forEach(value => {
+    input.forEach(item => {
       if (leafNodeOnly) {
-        if (value.checked && !value.parentNode.nextSibling) {
-          selectedData.push(this.dataMap[value.name])
+        if (item.checked && !item.parentNode.nextSibling) {
+          selectedData.push(this.dataMap[item.name])
         }
       } else {
         if (exceptIndeterminate) {
-          if (value.checked && !value.indeterminate) {
-            selectedData.push(this.dataMap[value.name])
+          if (item.checked) {
+            selectedData.push(this.dataMap[item.name])
           }
         } else {
-          if (value.checked) {
-            selectedData.push(this.dataMap[value.name])
+          if (item.checked || item.indeterminate) {
+            selectedData.push(this.dataMap[item.name])
           }
         }
       }
@@ -216,17 +215,19 @@ class checkboxTree {
     const parentInput = parentDom.previousSibling.querySelector('input')
     // 默认无半选状态
     let indeterminate = false
+    const parentDomChildren = Array.prototype.slice.call(parentDom.children)
 
     if (checked) {
       // 元素自身被选中， 检查兄弟节点是否全选
-      for (let i = 0; i < parentDom.children.length; i++) {
-        const inputArray = Array.prototype.slice.call(parentDom.children[i].querySelectorAll('input'))
+      parentDomChildren.some(child => {
+        const childInput = child.querySelectorAll('input')
+        const inputArray = Array.prototype.slice.call(childInput)
         const indStatus = inputArray.some(value => !value.checked)
         if (indStatus) {
           indeterminate = true
-          break
+          return true
         }
-      }
+      })
       // 赋值状态
       parentInput.checked = true
       parentInput.indeterminate = childIndeterminate || indeterminate
@@ -236,13 +237,14 @@ class checkboxTree {
       }
     } else {
       // 元素自身被移除， 检查兄弟节点是否全选
-      for (let j = 0; j < parentDom.children.length; j++) {
-        if (parentDom.children[j].children[0].querySelectorAll('input')[0].checked) {
+      parentDomChildren.some(child => {
+        const sibingInput = child.children[0].querySelectorAll('input')[0]
+        if (sibingInput.checked || sibingInput.indeterminate) {
           // 如果有被选中的，则半选状态并跳出循环
           indeterminate = true
-          break
+          return true
         }
-      }
+      })
       // 赋值状态
       parentInput.checked = indeterminate
       this.dataMap[parentInput.name][this.checkedProperty] = true
