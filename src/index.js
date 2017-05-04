@@ -11,18 +11,18 @@ const defaultLevel = {
 }
 
 class checkboxTree {
-  constructor (node, settings) {
-    const level = extend(defaultLevel, settings.level)
-
+  constructor (node, { data = [], level = {}, changeHandler = noop }) {
+    if (!node) return
+    const settings = extend(defaultLevel, level)
     this.node = node
-    this.data = settings.data || []
-    this.changeHandler = settings.changeHandler || noop
-    this.childrenSign = level.children
-    this.checkedProperty = level.checkedProperty
-    this.nameSign = level.name
-    this.idSign = level.id
-    this.parentIdSign = level.parentId
-    this.expened = level.expened
+    this.data = data
+    this.changeHandler = changeHandler || noop
+    this.childrenSign = settings.children
+    this.checkedProperty = settings.checkedProperty
+    this.nameSign = settings.name
+    this.idSign = settings.id
+    this.parentIdSign = settings.parentId
+    this.expened = settings.expened
     this.dataMap = {}
     this.selectedData = []
     this.init()
@@ -140,6 +140,7 @@ class checkboxTree {
       }
     } else if (target.tagName.toLowerCase() === 'input') {
       this.checkboxClickHandler(target)
+      this.changeHandler()
     }
   }
 

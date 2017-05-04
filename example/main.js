@@ -14,7 +14,8 @@ let sign = true
 /* eslint-disable no-new */
 const tree = new Tree(document.getElementById('tree'), {
   data: data['children'],
-  level: level
+  level,
+  changeHandler () { console.log('发生了改变') }
 })
 const getBtn = document.querySelector('#get-info')
 const checkType = document.querySelector('#check-type')
