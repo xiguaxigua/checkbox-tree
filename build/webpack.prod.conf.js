@@ -8,9 +8,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = merge(baseWebpackConfig, {
   devtool: '#source-map',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'js/[name].[chunkhash:8].js',
-    chunkFilename: 'js/[id].[chunkhash:8].js'
+    path: path.resolve(__dirname, '../docs'),
+    filename: 'checkbox-tree/js/[name].[chunkhash:8].js',
+    chunkFilename: 'checkbox-tree/js/[id].[chunkhash:8].js'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -23,7 +23,7 @@ module.exports = merge(baseWebpackConfig, {
       sourceMap: true
     }),
     new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash:8].css',
+      filename: 'checkbox-tree/css/[name].[contenthash:8].css',
       disable: false,
       allChunks: true
     }),

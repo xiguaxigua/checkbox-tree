@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./build/webpack.dev.conf.js",
-    "build": "rm -f -r dist && webpack --config ./build/webpack.prod.conf.js --hide-modules",
+    "build": "rm -f -r docs && webpack --config ./build/webpack.prod.conf.js --hide-modules",
     "com": "rm -f -r lib && node build/rollup.config.js",
     "prepublish": "npm run com"
   },
