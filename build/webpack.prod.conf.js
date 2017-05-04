@@ -9,8 +9,9 @@ module.exports = merge(baseWebpackConfig, {
   devtool: '#source-map',
   output: {
     path: path.resolve(__dirname, '../docs'),
-    filename: 'checkbox-tree/js/[name].[chunkhash:8].js',
-    chunkFilename: 'checkbox-tree/js/[id].[chunkhash:8].js'
+    filename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[id].[chunkhash:8].js',
+    publicPath: '/checkbox-tree'
   },
   plugins: [
     new webpack.DefinePlugin({
